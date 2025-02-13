@@ -1,0 +1,110 @@
+body{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 6rem;
+}
+
+
+/*------------------------------------- BOARD ---------------------------------------*/
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px); 
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px; 
+}
+
+.tile {
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dotted #000000;
+}
+
+.fa-solid{
+    font-size: 3.5rem;
+}
+
+.fa-cloud{
+    color: green;
+}
+
+.fa-fish{
+    color: rgb(21, 109, 215);
+}
+
+
+/*------------------------------------------------ LOADING CONTAINER-------------------------------------------------------------------*/
+.loadingContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 5rem;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+.loading {
+    width: 50px;  
+    height: 50px; 
+    background-image: url('../imgs/loading.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 10px;
+}
+
+
+
+/*-------------------------------------- BUTTONS CONFIG-----------------------------------------*/
+.buttons-container{
+    padding: 3rem;
+    position: relative;
+    height: 100vh;
+
+    & .fa-solid{
+        font-size: 3rem;
+        background-color: rgb(0, 166, 255);
+        padding: 1rem;
+        color: white;
+        border-radius: 10px;
+        transition: 0.3s ease;
+    }
+
+    & .fa-rotate{
+        margin-bottom: 3rem;
+    }
+
+    & .movility-buttons{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        & .fa-solid{
+            width: 30%;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+    }
+
+    &  .fa-solid:hover{
+        cursor: pointer;
+        background-color: rgb(0, 136, 255);
+    }
+
+}
+
+
+
