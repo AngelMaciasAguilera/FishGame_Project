@@ -17,6 +17,7 @@ export interface Player {
     x: Number;
     y: Number;
     gameID: String;
+    type: "player";
     state: PlayerStates;
     direction: Directions;
     visibility: Boolean;
@@ -31,6 +32,7 @@ export const PlayerFactory = {
             id: socket,
             x: 0,
             y: 0,
+            type: "player",
             gameID: 'player_' + 0,
             state: PlayerStates.Idle,
             direction: Directions.Up,
@@ -41,6 +43,7 @@ export const PlayerFactory = {
     buildPlayerClient: (socket: Socket, roomSize: Number) : Player => {
         return {
             id: socket.id,
+            type: "player",
             x: 0,
             y: 0,
             gameID: 'player_' + roomSize,

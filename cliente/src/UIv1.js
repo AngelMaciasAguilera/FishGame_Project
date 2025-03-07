@@ -169,7 +169,9 @@ UIv1.generatePlayerButtons = (player_id, referenceNode) => {
     let player = GameHandler.get_player_inPosition(GivenID.getID());
     let possibleY = player.y - 1;
 
-    ConnectionHandler.sendPlayerMovement(GameHandler.game.id, GivenID.getID(), player.x, possibleY);
+    if(possibleY >= 0){
+      
+    }    
 
   });
 
@@ -219,3 +221,4 @@ UIv1.drawPlayerRotation = (payload) => {
     }
   }
 }
+

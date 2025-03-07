@@ -36,9 +36,19 @@ export class GameService {
         if (room.occupied) {
             if (room.game) {
                 //We loop our array of players and we give a random position in the board to each player
+                let availablePositions = [[0,0],[0,9],[9,0],[9,9]];
                 for (const element of room.players) {
-                    
+                    let randomPosition = Math.floor(Math.random() * availablePositions.length);
+                    element.x = availablePositions[randomPosition][0];
+                    element.y = availablePositions[randomPosition][1];
+                    availablePositions.splice(randomPosition, 1);                     
+                    room.game.board.elements.forEach(item => {
+                        if(item.type == 1){
+                            item.object = element
+                        }
+                    });
                 }
+
 
                 room.game.state = GameStates.PLAYING;
                 if (ServerService.getInstance().isActive()) {
@@ -46,6 +56,8 @@ export class GameService {
                         We send the room because it has everything we want, it has the players with its name its state,
                         and on the other hand it has the  game which has the board, so to sum up we are sending the players, the board, the info of the room, and also the info of the game, all we need in the client-side
                     */
+                    console.log("Tablero para ser enviado: ");
+                    console.log(room.game.board);
                     const gameClient = GameFactory.buildClientGame(room);
                     ServerService.getInstance().sendMessage(room.name, Messages.GAMEREADY, gameClient);
                 }

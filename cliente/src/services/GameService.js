@@ -60,6 +60,8 @@ export class GameService {
     };
 
     async do_gameReady(payload){
+        console.log("Esto me llega por el payload del game ready: ");
+        console.log(payload.board);
         //Saving the game object recieved from the server
         GameHandler.init(payload)
         this.#board.build(GameHandler.game.board);

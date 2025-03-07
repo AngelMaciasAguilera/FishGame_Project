@@ -25,10 +25,9 @@ export interface Game {
 
 
 //We use a version of the factory pattern to generate our differents type of game
-
 export const GameFactory = {
     generateRandomGameName: (size: Number) => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join(''),
-    //This builds a player object to be saved in the server with its socket to be accessible
+    //This builds a game object to be saved in the server with its socket to be accessible
     buildServerGame: (room: Room): Game => {
         return {
             id: "game" + GameFactory.generateRandomGameName(128),
@@ -37,7 +36,7 @@ export const GameFactory = {
             board: new BoardBuilder().getBoard()
         }
     },
-    //This builds a player object to be sended to the client with its socket to be unique in the board and in any event with its id the server can recognise them
+    //This builds a game object to be sended to the client with its socket to be unique in the board and in any event with its id the server can recognise them
     buildClientGame: (room: Room): Game => {
         let idToSet: String = "";
         
