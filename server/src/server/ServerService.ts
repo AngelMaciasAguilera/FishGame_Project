@@ -2,7 +2,7 @@ import { DefaultEventsMap, Server, Socket } from 'socket.io';
 import http from 'http';
 import { GameService } from '../game/GameService';
 import { AnyTxtRecord } from 'dns';
-import { PlayerFactory } from '../player/entities/Player';
+import { PlayerFactory, Directions } from '../player/entities/Player';
 import { Messages } from '../game/entities/Game';
 
 export class ServerService {
@@ -99,7 +99,11 @@ export class ServerService {
     }
 
     private do_emitPlayerRotation(payload: any) {
-         ServerService.getInstance().sendMessage(payload.room, Messages.PLAYER_ROTATES, payload);
+        console.log("Ha rotado: ");
+        console.log(payload);
+        GameService.getInstance().addRotationPlayer(payload.gameID, payload.playerID, payload.direction);
+        ServerService.getInstance().sendMessage(payload.room, Messages.PLAYER_ROTATES, payload);
+
     }
 
     private do_emitPlayerMovement(payload:any){

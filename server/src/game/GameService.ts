@@ -42,11 +42,16 @@ export class GameService {
                     element.x = availablePositions[randomPosition][0];
                     element.y = availablePositions[randomPosition][1];
                     availablePositions.splice(randomPosition, 1);                     
-                    room.game.board.elements.forEach(item => {
-                        if(item.type == 1){
-                            item.object = element
-                        }
-                    });
+
+                    // We insert the player configurated in the elements array of the board property of the game
+                    // I know this is not very efficient in terms, and maybe it's not a good practice, but 
+                    // it's to make it through; in post versions we can improve it so it doesn't bothers me.
+                    room.game.board.elements.push({
+                        type: "player",
+                        object: element
+                    }); 
+                    // We insert the players in the game that is what we send to the client
+                    room.game.players?.push(element);
                 }
 
 
@@ -68,6 +73,35 @@ export class GameService {
         return false;
     }
 
+
+    public addRotationPlayer(gameID : String, playerID : String, direction : String ){
+        this.games.forEach(game => {
+            //Setting the new direction in the server
+            // First we find the game indicated in the payload
+            console.log("Id del primer juego");
+            console.log(game.id);
+
+            console.log("Id del juego enviado");
+            console.log(gameID);
+
+            if(game.id == gameID){
+                console.log("Llega ");
+                console.log(game);
+                game.players?.forEach(item => {
+                    // Now we find the player that has rotated
+                    // Why id id? because the first id is the socket and the second id is the id associated to the socket of the client that is a string
+                    console.log(item.id.id);
+                    if(item.id == playerID){
+                        console.log("Direction setted");
+                        // And now we set him the new direction using the readDirectionSended that will translate the string sended to us to an object of Directions
+                        item.direction = this.readDirectionSended(direction);
+                    }
+                });
+            }
+        });
+        
+    }
+
     public movePlayer(gameID : String, positionX : number, positionY : number){
         const game = this.games.find((item) => item.id == gameID);
 
@@ -78,6 +112,31 @@ export class GameService {
             }
         }
 
+    }
+
+    private readDirectionSended(direction : String){
+        switch (direction) {
+            case "up":
+                return Directions.Up
+                break;
+            
+            case "down":
+                return Directions.Down
+                break;
+
+
+            case "left":
+                return Directions.Left
+                break;   
+
+
+            case "right":
+                return Directions.Right
+                break;
+
+            default:
+                return Directions.Idle;
+        }
     }
 
 }

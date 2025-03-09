@@ -2,7 +2,7 @@ import { Player } from "../../player/entities/Player";
 import { Bush } from "./Bush";
 
 export interface Element {
-    type: number;
+    type: number | String;
     object: Player | Bush | null; 
 }
 

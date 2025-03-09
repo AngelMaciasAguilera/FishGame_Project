@@ -1,5 +1,6 @@
 import { io } from "../../node_modules/socket.io-client/dist/socket.io.esm.min.js";
 import { GivenID } from "../entities/Player.js";
+import { GameHandler } from "./GameHandler.js";
 import { GameService } from "./GameService.js";
 
 export const ConnectionHandler = {
@@ -32,12 +33,14 @@ export const ConnectionHandler = {
         })
     },
 
-    sendPlayerRotates : ( room, direction ) => {
+    sendPlayerRotates : ( room, direction, playerID ) => {
         ConnectionHandler.socket.emit("message", {
             type: "PLAYER_ROTATES",
             content: {
+                gameID : GameHandler.game.id,
                 room: room,
                 direction: direction,
+                playerID : playerID,
                 playerBoardId: GivenID.getID()
             }
         });

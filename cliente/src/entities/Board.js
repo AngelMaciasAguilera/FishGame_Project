@@ -1,3 +1,5 @@
+import { Element } from "./Element.js";
+
 export const ELEMENTS = {
     bush : 5,
 };
@@ -18,11 +20,17 @@ export class Board {
     }
 
     build(payload) {
-        const { size, elements, startPositionsAvailable } = payload;
-        this.#map = new Array(size).fill().map(() => new Array(size).fill(0));
-        elements.forEach(element=> this.#map[element.x][element.y]= ELEMENTS.bush);
+        const { size, elements } = payload;
+
+
+        this.#map = new Array(size).fill().map(() => new Array(size).fill(
+            new Element()
+        ));
+
+        console.log("MMapa generado: ");
+        console.log(this.#map);
+        //elements.forEach(element=> this.#map[element.x][element.y]= ELEMENTS.bush);
         this.#state = this.#states.BUILD;
-        console.log(startPositionsAvailable);
     }
 
     get map() {

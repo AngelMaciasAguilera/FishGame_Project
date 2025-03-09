@@ -42,8 +42,11 @@ UIv1.drawBoard = (board, players) => {
     document.getElementById("loadingContainer").style.display = "none";
   }
 
-  UIv1.board = board;
+  console.log("Este es el tamblero que me llega masters: ");
+  console.log(board);
+
   if (board !== undefined) {
+  
     const base = document.getElementById(UIv1.uiElements.board);
     base.innerHTML = "";
     base.style.gridTemplateColumns = `repeat(${board.length}, 100px)`;
@@ -147,6 +150,7 @@ UIv1.generatePlayerButtons = (player_id, referenceNode) => {
          and we will plus 90 to it, after that we will traduce again to directions and we will set that to the player in the array
       */
       const player = GameHandler.get_player(player_id);
+      console.log(player);
       let degs = PositionsHandler.translateDirectionToDegs(player.direction) + 90;
       if (degs == 360) degs = 0;
 
@@ -158,7 +162,7 @@ UIv1.generatePlayerButtons = (player_id, referenceNode) => {
       console.log("Nueva posicion del player: ");
       console.log(player);
 
-      ConnectionHandler.sendPlayerRotates(GameHandler.game.room, direction);
+      ConnectionHandler.sendPlayerRotates(GameHandler.game.room, direction, player.id);
     }
 
   })

@@ -12,6 +12,7 @@ export class GameService {
     #ui = null;
     #board = null;
     #queue = null;
+    #players = [];
     #state = null;
     #parallel = null;
 
@@ -60,15 +61,19 @@ export class GameService {
     };
 
     async do_gameReady(payload){
+        this.#state  = this.#states.PLAYING;
         console.log("Esto me llega por el payload del game ready: ");
         console.log(payload.board);
         //Saving the game object recieved from the server
-        GameHandler.init(payload)
+        GameHandler.init(payload);
+
+        this.#players = GameHandler.players;
         this.#board.build(GameHandler.game.board);
         this.#ui.drawBoard(this.#board.map, GameHandler.players);
     }
 
     async do_newPlayer(){
+        this.#state  = this.#states.WAITING;
         this.#ui.waitPlayers();
     }
 

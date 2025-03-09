@@ -1,3 +1,6 @@
+
+//This const is made to improve the access to the game that is sended to us by the server so we can access to it's property more easier
+//Again i know this isn't the best but, it works, so we can improve it in the future.
 export const GameHandler = {
     game : null,
     players: null,
