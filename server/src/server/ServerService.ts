@@ -90,10 +90,6 @@ export class ServerService {
         }
     }
 
-    public gameStartMessage() {
-        //
-    }
-
     public isActive() {
         return this.active;
     }
@@ -107,7 +103,17 @@ export class ServerService {
     }
 
     private do_emitPlayerMovement(payload:any){
-        GameService.getInstance().movePlayer(payload.playerID, payload.x, payload.y);
+        console.log("Payload del movement");
+        console.log(payload);
+        GameService.getInstance().movePlayer(payload.game, payload.playerBoardId , payload.positionX, payload.positionY);
     }
 
+    // We send the message when is valid to the players
+    private do_validPlayerMovement(payload : any){
+        ServerService.getInstance().sendMessage(payload.room, Messages.PLAYER_MOVES, payload)
+    }
+    // We send the message when is valid to the specific player
+    private do_invalidPlayerMovement(payload : any){
+        
+    }
 }

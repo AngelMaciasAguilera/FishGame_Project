@@ -179,7 +179,7 @@ UIv1.generatePlayerButtons = (player_id, referenceNode) => {
       console.log("Envio tus datos al servidor");
       // We send the information to the server so it can validate that the movement is correct and when the server checks if is a 
       // valid movement we move the player to that tile
-      ConnectionHandler.sendPlayerMovement();
+      ConnectionHandler.sendPlayerMovement(GameHandler.game.room,GameHandler.game.id , GivenID.getID() , player.x , player.y);
     }    
 
   });

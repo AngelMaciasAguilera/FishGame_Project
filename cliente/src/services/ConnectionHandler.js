@@ -46,12 +46,14 @@ export const ConnectionHandler = {
         });
     },
 
-    sendPlayerMovement : (game, playerBoardId, positionX, positionY) => {
+    sendPlayerMovement : (room, game, playerBoardId, positionX, positionY) => {
         ConnectionHandler.socket.emit("message", {
             type: "PLAYER_MOVES",
             content: {
+                room : room,
                 game : game, 
                 playerBoardId : playerBoardId, 
+                playerID : GameHandler.get_player_inPosition(playerBoardId),
                 positionX : positionX,
                 positionY : positionY
             }

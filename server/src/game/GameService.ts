@@ -36,12 +36,12 @@ export class GameService {
         if (room.occupied) {
             if (room.game) {
                 //We loop our array of players and we give a random position in the board to each player
-                let availablePositions = [[0,0],[0,9],[9,0],[9,9]];
+                let availablePositions = [[0, 0], [0, 9], [9, 0], [9, 9]];
                 for (const element of room.players) {
                     let randomPosition = Math.floor(Math.random() * availablePositions.length);
                     element.x = availablePositions[randomPosition][0];
                     element.y = availablePositions[randomPosition][1];
-                    availablePositions.splice(randomPosition, 1);                     
+                    availablePositions.splice(randomPosition, 1);
 
                     // We insert the player configurated in the elements array of the board property of the game
                     // I know this is not very efficient in terms, and maybe it's not a good practice, but 
@@ -49,7 +49,7 @@ export class GameService {
                     room.game.board.elements.push({
                         type: "player",
                         object: element
-                    }); 
+                    });
                     // We insert the players in the game that is what we send to the client
                     room.game.players?.push(element);
                 }
@@ -74,7 +74,7 @@ export class GameService {
     }
 
 
-    public addRotationPlayer(gameID : String, playerID : String, direction : String ){
+    public addRotationPlayer(gameID: String, playerID: String, direction: String) {
         this.games.forEach(game => {
             //Setting the new direction in the server
             // First we find the game indicated in the payload
@@ -84,14 +84,14 @@ export class GameService {
             console.log("Id del juego enviado");
             console.log(gameID);
 
-            if(game.id == gameID){
+            if (game.id == gameID) {
                 console.log("Llega ");
                 console.log(game.players);
                 game.players?.forEach(item => {
                     // Now we find the player that has rotated
                     // Why id id? because the first id is the socket and the second id is the id associated to the socket of the client that is a string
                     console.log(item.id.id);
-                    if(item.id == playerID){
+                    if (item.id == playerID) {
                         console.log("Direction setted");
                         // And now we set him the new direction using the readDirectionSended that will translate the string sended to us to an object of Directions
                         item.direction = this.readDirectionSended(direction);
@@ -99,27 +99,44 @@ export class GameService {
                 });
             }
         });
-        
+
     }
 
-    public movePlayer(gameID : String, positionX : number, positionY : number){
+    public movePlayer(gameID: String, playerBoardId: number, positionX: number, positionY: number) {
+        console.log("Se va amover");
+        console.log(gameID);
+        //Finding the game throught the id sended from the client
         const game = this.games.find((item) => item.id == gameID);
+        console.log(game);
+        // Validating if the position is in bounds of the array, this is in case the previous validation has failed in the client side
+        if ((positionX >= 0 && positionX <= 9) && (positionY >= 0 && positionY <= 9)) {
+            // Now we find a player who has that specific position
+            // If the validTile is undefined that means no player has it so we can say the movement is valid
+            const validTile = game?.players?.find((item) => item.x == positionX && item.y == positionY);
+            console.log("Validando la posicion");
+            if (validTile == undefined) {
+                // Now we have to notify to the room that the player with boardID : playerBoardId is going to move, and now the player knows his boardID so
+                // It will move when the server orders it
+                console.log("Posicion valida");
 
-        if((positionX >= 0 && positionX <= 9) && (positionY >= 0 && positionY <= 9)){
-            const validTile = game?.players?.find((item) => item.x == positionX && item.y  == positionY);
-            if(validTile == undefined){
-                console.log("vale player muevete");
+            } else {
+                // We notify that player that the tile he wants to move is occupied
+                console.log("Posicion no valida");
             }
+
+        } else {
+            // We notify that player that the tile he wants to move is occupied
+            console.log("Posicion no valida");
         }
 
     }
 
-    private readDirectionSended(direction : String){
+    private readDirectionSended(direction: String) {
         switch (direction) {
             case "up":
                 return Directions.Up
                 break;
-            
+
             case "down":
                 return Directions.Down
                 break;
@@ -127,7 +144,7 @@ export class GameService {
 
             case "left":
                 return Directions.Left
-                break;   
+                break;
 
 
             case "right":
