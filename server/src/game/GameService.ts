@@ -86,7 +86,7 @@ export class GameService {
 
             if(game.id == gameID){
                 console.log("Llega ");
-                console.log(game);
+                console.log(game.players);
                 game.players?.forEach(item => {
                     // Now we find the player that has rotated
                     // Why id id? because the first id is the socket and the second id is the id associated to the socket of the client that is a string

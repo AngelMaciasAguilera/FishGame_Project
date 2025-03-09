@@ -10,7 +10,8 @@ export enum GameStates {
 export enum Messages {
     NEW_PLAYER = "NEW_PLAYER",
     GAMEREADY = "GAMEREADY",
-    PLAYER_ROTATES = "PLAYER_ROTATES"
+    PLAYER_ROTATES = "PLAYER_ROTATES",
+    PLAYER_MOVES = "PLAYER_MOVES"
 }
 
 

@@ -171,10 +171,15 @@ UIv1.generatePlayerButtons = (player_id, referenceNode) => {
   upButton.addEventListener('click', (event) => {
       
     let player = GameHandler.get_player_inPosition(GivenID.getID());
+    console.log("El jugador que se quiere mover");
+    console.log(player);
     let possibleY = player.y - 1;
 
-    if(possibleY >= 0){
-      
+    if(possibleY >= 0 && player.direction == "up"){
+      console.log("Envio tus datos al servidor");
+      // We send the information to the server so it can validate that the movement is correct and when the server checks if is a 
+      // valid movement we move the player to that tile
+      ConnectionHandler.sendPlayerMovement();
     }    
 
   });

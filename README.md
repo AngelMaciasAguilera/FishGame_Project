@@ -56,5 +56,6 @@ unos datos que pueden ser mas privados o que no son necesarios enviarlos al clie
 de que enviaba el socket entero y eso hacia StackOverflow de la pila de memoria por llamadas recursivas, bueno para solucionarlo se me ocurrio usar una factoria, y directamente
 obtengo el tupo de jugador o de juego que yo quiera en el momento solicitado. Esto además considero que puede ser escalable de cara al futuro ya que puedes implementar propiedades
 en el juego del lado del servidor que no deben estar en el cliente y esto es muy útil ya que como puedo configurar el patron factoria elijo que envio y que no envio y es mucho mas 
-sencillo.
+sencillo. Tambien he implementado lo que comentaste en clase de que el tablero contenga objetos en lugar de numeros para mejorar la accesibilidad, entre otras cosas que he estado
+haciendo.
 
